@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reconocedor de Cartas Yu-Gi-Oh!</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1><span class="accent">Yu-Gi-Oh!</span> Card Scanner</h1>
+    <p class="subtitle">
+      Red siamesa + Triplet Loss &mdash; identifica una carta por similitud de embeddings
+    </p>
+  </header>
+
+  <main>
+    <!-- Panel izquierdo: entrada de la imagen (archivo o camara) -->
+    <section class="panel" id="input-panel">
+      <h2>1. Carta a identificar</h2>
+
+      <!-- Pestanas para elegir el modo de entrada -->
+      <div class="tabs">
+        <button id="tab-upload" class="tab active">Subir foto</button>
+        <button id="tab-camera" class="tab">Usar c&aacute;mara</button>
+      </div>
+
+      <!-- Modo archivo: input file oculto + zona de arrastre clickeable -->
+      <div id="upload-mode">
+        <label id="dropzone" for="file-input">
+          <span class="dropzone-icon">&#128247;</span>
+          <span>Arrastr&aacute; una imagen ac&aacute; o hac&eacute; clic para elegirla</span>
+        </label>
+        <input type="file" id="file-input" accept="image/*" hidden />
+      </div>
+
+      <!-- Modo camara: video en vivo + guia de encuadre + boton de captura -->
+      <div id="camera-mode" hidden>
+        <div id="camera-wrap">
+          <video id="video" autoplay playsinline></video>
+          <!-- Marco con relacion de aspecto de carta (~268/391): alinea la foto
+               con los scans de la galeria y reduce el fondo de mesa. -->
+          <div id="card-guide" aria-hidden="true"></div>
+        </div>
+        <p class="hint">Coloca la carta dentro del marco dorado y captura.</p>
+        <button id="capture-btn" class="primary">Capturar carta</button>
+        <!-- canvas invisible donde se congela (y recorta) el frame capturado -->
+        <canvas id="canvas" hidden></canvas>
+      </div>
+
+      <!-- Vista previa de la imagen elegida/capturada -->
+      <div id="preview-box" hidden>
+        <h3>Vista previa</h3>
+        <img id="preview" alt="Vista previa de la carta" />
+        <button id="identify-btn" class="primary">Identificar carta</button>
+      </div>
+    </section>
+
+    <!-- Panel derecho: resultados del back-end -->
+    <section class="panel" id="results-panel">
+      <h2>2. Resultado</h2>
+      <div id="status" class="status">Eleg&iacute; una imagen para empezar.</div>
+      <div id="results"></div>
+    </section>
+  </main>
+
+  <footer>
+    Trabajo Integrador de Redes Neuronales &mdash;
+    ResNet-18 &rarr; embedding 128-D &rarr; b&uacute;squeda por vecino m&aacute;s cercano
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

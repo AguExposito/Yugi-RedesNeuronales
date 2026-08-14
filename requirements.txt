@@ -1,0 +1,20 @@
+# --- Deep Learning (nucleo del modelo) ---
+# PyTorch: framework usado en TODO el curso (U1 "Copia de L1.ipynb" en adelante, y FCC 00-09).
+torch>=2.2
+# torchvision: modelos preentrenados (ResNet) y transforms de imagenes.
+# ResNet se estudia en U2/"2 Redes_Convolucionales.ipynb"; transfer learning en U3/"2_FineTuning.ipynb".
+torchvision>=0.17
+
+# --- Datos ---
+# requests: para consumir la API de YGOPRODeck y descargar las imagenes de cartas.
+requests>=2.31
+# Pillow: apertura/decodificacion de imagenes (usado por los Dataset, igual que en FCC 04).
+Pillow>=10.0
+
+# --- Back-end (API web) ---
+# FastAPI: framework del back-end que expone el modelo como servicio HTTP.
+fastapi>=0.110
+# uvicorn: servidor ASGI que corre la aplicacion FastAPI.
+uvicorn[standard]>=0.29
+# python-multipart: necesario para que FastAPI reciba archivos (la foto de la carta) via formulario.
+python-multipart>=0.0.9
